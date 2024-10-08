@@ -1,7 +1,7 @@
 {
   "name": "jobify",
   "version": "1.0.0",
-  "description": "[Jobify](https://temp-jobify-pska.onrender.com)",
+  "description": "jobify",
   "main": "index.js",
   "type": "module",
   "scripts": {
