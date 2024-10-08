@@ -1,16 +1,15 @@
 {
   "name": "jobify",
   "version": "1.0.0",
-  "description": "[Jobify](https://jobify.live/)",
+  "description": "[Jobify](https://temp-jobify-khr7.onrender.com)",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "setup-project": "npm i && cd jobfy-client && npm i",
-    "server":"nodemon server.js",
-    "client":"cd jobfy-client && npm run dev",
-  "dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
-
-    
+    "setup-production-app": "npm i && cd jobfy-client && npm i && npm run build",
+    "server": "nodemon server.js",
+    "client": "cd jobfy-client && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
   },
   "keywords": [],
   "author": "",
