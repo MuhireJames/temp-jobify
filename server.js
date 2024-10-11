@@ -14,7 +14,7 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 // public
 import { dirname } from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import path from "path";
 
 // middleware
