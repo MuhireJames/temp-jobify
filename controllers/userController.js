@@ -2,7 +2,8 @@ import { StatusCodes } from "http-status-codes";
 import User from "../models/UserModel.js";
 import Job from "../models/JobModel.js";
 import { v2 as cloudinary } from "cloudinary";
-import { formatImage } from "../middleware/multerMiddleware.js";
+import { promises as fs } from "fs";
+
 export const getCurrentUser = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId }).select("-password");
 
@@ -19,9 +20,8 @@ export const updateUser = async (req, res) => {
   delete newUser.password;
 
   if (req.file) {
-    const file = formatImage(req.file);
-
-    const response = await cloudinary.uploader.upload(file);
+    const response = await cloudinary.uploader.upload(req.file.path);
+    await fs.unlink(req.file.path);
     newUser.avatar = response.secure_url;
     newUser.avatarPublicId = response.public_id;
   }
