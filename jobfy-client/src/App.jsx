@@ -27,6 +27,7 @@ import { loader as editJobLoader } from "./pages/EditJob";
 import { loader as adminLoader } from "./pages/Admin";
 import { loader as statsLoader } from "./pages/Stats";
 import ErrorElement from "./components/ErrorElement";
+
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
   document.body.classList.toggle("dark-theme", isDarkTheme);
@@ -52,29 +53,35 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <DashboardLayout isDarkThemeEnabled={isDarkThemeEnabled} />,
-        loader: dashboardLoader,
+        element: (
+          <DashboardLayout
+            isDarkThemeEnabled={isDarkThemeEnabled}
+            queryClient={queryClient}
+          />
+        ),
+        loader: dashboardLoader(queryClient),
         children: [
           {
             index: true,
             element: <AddJob />,
-            action: addJobAction,
+            action: addJobAction(queryClient),
           },
           {
             path: "stats",
             element: <Stats />,
-            loader: statsLoader,
+            loader: statsLoader(queryClient),
             errorElement: <ErrorElement />,
           },
           {
             path: "all-jobs",
             element: <AllJobs />,
-            loader: allJobsLoader,
+            loader: allJobsLoader(queryClient),
           },
           {
             path: "profile",
             element: <Profile />,
-            action: profileAction,
+            action: profileAction(queryClient),
+            errorElement: <ErrorElement />,
           },
           {
             path: "admin",
@@ -84,16 +91,16 @@ const router = createBrowserRouter([
           {
             path: "edit-job/:id",
             element: <EditJob />,
-            loader: editJobLoader,
-            action: editJobAction,
+            loader: editJobLoader(queryClient),
+            action: editJobAction(queryClient),
           },
-          { path: "delete-job/:id", action: deleteJobAction },
+          { path: "delete-job/:id", action: deleteJobAction(queryClient) },
         ],
       },
       {
         path: "login",
         element: <Login />,
-        action: loginAction,
+        action: loginAction(queryClient),
       },
       {
         path: "register",
@@ -107,7 +114,7 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );

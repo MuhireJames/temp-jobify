@@ -5,6 +5,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
 
 const app = express();
 import morgan from "morgan";
@@ -35,12 +37,9 @@ app.use(express.static(path.resolve(__dirname, "./jobfy-client/dist")));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
-app.get("/api/v1/test", (req, res) => {
-  res.json({ msg: "test route" });
-});
+app.use(helmet());
+app.use(mongoSanitize());
+
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
