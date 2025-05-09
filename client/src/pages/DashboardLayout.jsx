@@ -8,13 +8,12 @@ import {
 import { createContext, useState } from "react";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, NavBar, SmallSidebar, Loading } from "../components";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import customFetch from "../utils/customFetch";
 
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 const userQuery = {
   queryKey: ["user"],

@@ -39,6 +39,7 @@ export const validateJobInput = withValidationErrors([
     .isIn(Object.values(JOB_TYPE))
     .withMessage("invalid job type value"),
 ]);
+
 export const validateIdParam = withValidationErrors([
   param("id").custom(async (value, { req }) => {
     const isValid = mongoose.Types.ObjectId.isValid(value);
